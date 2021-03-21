@@ -589,7 +589,46 @@ person2.sayName(); // Greg
 
 console.log(person1.constructor == Person); // true
 console.log(person2.constructor == Person); // true
+
 ```
+
+### 原型链面试题
+
+```javascript
+function Fn() {
+    this.x = 100;
+    this.y = 200;
+    this.getX = function () {
+        console.log(this.x);
+    }
+}
+Fn.prototype.getX = function () {
+    console.log(this.x);
+};
+Fn.prototype.getY = function () {
+    console.log(this.y);
+};
+let f1 = new Fn;
+let f2 = new Fn;
+console.log(f1.getX === f2.getX);//=>false
+console.log(f1.getY === f2.getY);//=>true
+console.log(f1.__proto__.getY === Fn.prototype.getY);//=>true
+console.log(f1.__proto__.getX === f2.getX);//=>flase
+console.log(f1.getX === Fn.prototype.getX);//=>flase
+console.log(f1.constructor);//=>Fn
+console.log(Fn.prototype.__proto__.constructor);//=Object
+f1.getX();//=>100
+f1.__proto__.getX();//=>undefined
+f2.getY();//=>200
+Fn.prototype.getY();//=>undefinedget Y中的this指的是Fn.prototype，Fn.prototype中没有属性Y，所以打印出undefined
+==========================================================
+  构造函数函数中this都属性和方法是new出来的实例的私有的属性和方法，所以f1和f2都有自己的私有属性【x、y】和私有方法【getX】
+  console.log(f1.getX === f2.getX);//=>false
+getY这个函数是定义在Fn.prototype上，f1和f2私有中都没有此方法，沿着原型链查找到Fn.prototype上。
+
+```
+
+
 
 ### 深拷贝与浅拷贝（还有赋值的区别）
 
