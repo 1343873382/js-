@@ -566,6 +566,10 @@ ES6中Map相对于Object对象有几个区别：
 
 ### 原型与原型链
 
+#### 没有prototype创造的属性是私有的，prototype创造的属性是共有的
+
+
+
 ![](C:\Users\MECHREVO\Desktop\前端联系\学习文档\原型链.png)
 
 - 所有的对象都有"__proto__"属性，该属性对应该对象的原型
