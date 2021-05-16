@@ -1,3 +1,5 @@
+
+
 # 一些js手写题
 
 ## es5实现类的继承
@@ -152,4 +154,47 @@ Function.prototype.myBind=function(context){
    }
 }
 ```
+
+
+
+## 节流
+
+```
+function throttle(fn,delay){
+   let timer
+   return function(){
+      let that=this
+       let args=arguments
+       if(timer){
+       return
+       }
+       timer=setTimeout(function(){
+         fn.apply(that,args)
+         timer=null
+       },delay)
+   }
+}
+```
+
+## 防抖
+
+```
+function debounce(fn,delay){
+     let timer;
+     return function(){
+       let that=this
+       let args=arguments
+       if(timer){
+           clearTimeout(timer)
+       }
+       timer=setTimeout(function(){
+           fn.apply(this,args)
+       },delay)
+     }
+}
+```
+
+
+
+
 
