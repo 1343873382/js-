@@ -241,3 +241,33 @@ function promiseAll(promises){
 }
 ```
 
+## jsonp
+
+```
+ function jsonp(url, data, callback) {
+            var funcName = 'jsonp_' + Date.now() + Math.random().toString().substr(2, 5)
+            //如果存在其他传入参数，需要进行拼接
+            if (typeof data === 'object') {
+                var tempArr = []
+                for (var key in data) {
+                    var value = data[key]
+                    tempArr.push(key + '=' + value)
+                }
+                data = tempArr.join('&')
+            }
+            var script = document.createElement('script')
+            script.src = url + '?' + data + '&callback= ' + funcName
+            document.body.appendChild(script)
+            window[funcName] = function(data) {
+                callback(data)
+                //清除全局函数和script标签
+                delete window[funcName]
+                document.body.removeChild(script)
+            }
+        }
+        jsonp('http://127.0.0.1:3000/api', {}, function(res) {
+                console.log(res)
+        })
+
+```
+
