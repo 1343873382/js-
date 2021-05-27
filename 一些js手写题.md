@@ -271,3 +271,20 @@ function promiseAll(promises){
 
 ```
 
+## instanceof
+
+```
+function instance(left,right){
+ leftValue=left.__proto__
+ rightProto=right.prototype										while(true){
+  if(leftValue===null){
+  return false
+  if(leftValue===rightProto){
+  return true
+  }
+  leftValue=leftValue.__proto__
+  }
+ }																					
+}
+```
+
