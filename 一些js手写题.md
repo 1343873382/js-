@@ -288,3 +288,62 @@ function instance(left,right){
 }
 ```
 
+## new
+
+```
+function _new(object,...args){
+    let newobj=Object.create(object.prototype)
+    let result=newobj.apply(object,args)
+    return typeof(result)==="object"?result:newobj
+}
+```
+
+## 懒加载
+
+```
+var imgs = document.querySelectorAll('img');
+
+        //用来判断bound.top<=clientHeight的函数，返回一个bool值
+        function isIn(el) {
+            var bound = el.getBoundingClientRect();
+            var clientHeight = window.innerHeight;
+            return bound.top <= clientHeight;
+        } 
+        //检查图片是否在可视区内，如果不在，则加载
+        function check() {
+            Array.from(imgs).forEach(function(el){
+                if(isIn(el)){
+                    loadImg(el);
+                }
+            })
+        }
+        function loadImg(el) {
+            if(!el.src){
+                var source = el.dataset.src;
+                el.src = source;
+            }
+        }
+        window.onload = window.onscroll = function () { //onscroll()在滚动条滚动的时候触发
+            check();
+        }
+```
+
+## ajax
+
+```
+function ajax(url,method){
+    let xhr=new XMLHttpRequest()
+    xhr.open(method,url)
+    xhr.onreadystatechange=()=>{
+    if(xhr.readyState===4){
+    if(xhr.status>=200&&xhr.status<300){
+        let res=xhr.responseText
+        console.log(res)
+    }
+    }
+    }
+    xhr.send()
+    
+}
+```
+
