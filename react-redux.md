@@ -105,7 +105,7 @@ export default connect(
 ### 原始版
 
 ```
-import CountUI from "../../components/count/count"
+primport CountUI from "../../components/count/count"
 import {connect} from "react-redux"
 import {createIncrementAction,createDecrementAction}from "../../redux/action/count"
 function mapStateToprops(state){
@@ -118,5 +118,60 @@ function mapDispatchToProps(dispatch){
     }
 }
 export default connect(mapStateToprops,mapDispatchToProps)(CountUI)
+```
+
+## provider
+
+```
+此处用provider是为了让app的后代组件全能接收到store，不用自己一个个去匹配
+ReactDOM.render( < Provider store = { store } > < App / > < /Provider>, document.getElementById("root"))
+```
+
+
+
+# 懒加载路由
+
+```
+import {lazy,Suspense}from "react"
+const home=lazy(()=>import("./home"))
+//suspense里面放路由组件 fallback里放当网速慢时加载的组件
+<Suspense fallback={<h1></h1>}>
+<Route></Route>
+</Suspense>
+```
+
+# Hooks
+
+## React.useState()
+
+```
+//初始值0在底层只会在刚开始时执行一次
+const [cont,setCount]=React.useState(0)
+
+add=()=>{setCount(count+1)}
+```
+
+
+
+## React.useEffect()
+
+```
+如果没有空数组则代表只在创建时发生一次函数
+如果没有数组，则在任何时候都会发生
+如果数组里有值，则只有那个值改变时才会发生
+里面function表示要发生的函数，return表示组件销毁时发生的
+React.useEffect(()=>{
+function
+return
+},[])
+```
+
+
+
+## React.useRef()
+
+```
+const myRef=React.useRef()
+<input ref={myRef}></input>
 ```
 
